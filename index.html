@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>NR Map ID</title>
+</head>
+
+<body>
+    <input id="input" style="width: 10em;" oninput="onChange()" />
+    <br>
+    <textarea id="output" style="width: 10em;" rows="10"></textarea>
+
+    <script>
+        var data = null
+        fetch("data.json").then(async (response) => {
+            data = await response.json()
+            onChange()
+        })
+
+        function onChange() {
+            const output = document.getElementById("output")
+            if (data == null) {
+                output.innerHTML = "Loading..."
+                return
+            }
+
+            const code = document.getElementById("input").value.toUpperCase()
+            if (code.length == 0) {
+                output.innerHTML = ""
+                return
+            }
+
+            var matched = ""
+            for (let i = 0; i < data.length; ++i) {
+                if (code == data[i].substring(0, code.length)) {
+                    matched += i.toString()
+                    matched += "\n"
+                }
+            }
+            output.innerHTML = matched
+        }
+    </script>
+</body>
+
+</html>
