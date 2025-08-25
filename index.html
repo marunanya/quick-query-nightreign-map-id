@@ -8,7 +8,7 @@
 <body>
     <input id="input" style="width: 10em;" oninput="onChange()" />
     <br>
-    <textarea id="output" style="width: 10em;" rows="10"></textarea>
+    <div id="output"></div>
 
     <script>
         var data = null
@@ -16,6 +16,24 @@
             data = await response.json()
             onChange()
         })
+
+        const nightlords = [
+            "Gladius",
+            "Adel",
+            "Gnoster",
+            "Maris",
+            "Libra",
+            "Fulghor",
+            "Caligo",
+            "Heolstor",
+        ]
+
+        const shifting_earths = [
+            "Mountaintop",
+            "Crater",
+            "Rotted Woods",
+            "Noklateo",
+        ]
 
         function onChange() {
             const output = document.getElementById("output")
@@ -33,8 +51,10 @@
             var matched = ""
             for (let i = 0; i < data.length; ++i) {
                 if (code == data[i].substring(0, code.length)) {
-                    matched += i.toString()
-                    matched += "\n"
+                    const pattern_id = i.toString().padStart(3, "0")
+                    const nightlord = nightlords[Math.floor(i * nightlords.length / 320)]
+                    const shifting_earth = i % 40 < 20 ? "Default" : shifting_earths[Math.floor(i % 20 * shifting_earths.length / 20)]
+                    matched += `<a href="https://marunanya.github.io/nightreign-map-pattern/pattern/${pattern_id}.jpg">${pattern_id} - ${nightlord} - ${shifting_earth}</a><br>`
                 }
             }
             output.innerHTML = matched
