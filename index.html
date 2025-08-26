@@ -2,11 +2,12 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width" />
     <title>NR Map Pattern Code</title>
 </head>
 
 <body>
-    <input id="input" style="width: 10em;" oninput="onChange()" />
+    <input id="input" oninput="onChange()" />
     <br>
     <div id="output"></div>
 
@@ -42,7 +43,9 @@
                 return
             }
 
-            const code = document.getElementById("input").value.toUpperCase()
+            const input = document.getElementById("input")
+            const code = input.value.toUpperCase()
+            input.value = code
             if (code.length == 0) {
                 output.innerHTML = ""
                 return
